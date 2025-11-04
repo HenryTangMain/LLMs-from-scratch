@@ -9,6 +9,22 @@ This [standalone-qwen3-moe.ipynb](standalone-qwen3-moe.ipynb) and [standalone-qw
 
 <img src="https://sebastianraschka.com/images/LLMs-from-scratch-images/bonus/qwen/qwen3-coder-flash-overview.webp?123" width="430px">
 
+&nbsp;
+# Qwen3 from-scratch code
+
+The standalone notebooks in this folder contain from-scratch codes in linear fashion:
+
+1. [standalone-qwen3.ipynb](standalone-qwen3.ipynb): The dense Qwen3 model without bells and whistles
+2. [standalone-qwen3-plus-kvcache.ipynb](standalone-qwen3-plus-kvcache.ipynb): Same as above but with KV cache for better inference efficiency
+3. [standalone-qwen3-moe.ipynb](standalone-qwen3-moe.ipynb): Like the first notebook but the Mixture-of-Experts (MoE) variant
+4. [standalone-qwen3-moe-plus-kvcache.ipynb](standalone-qwen3-moe-plus-kvcache.ipynb): Same as above but with KV cache for better inference efficiency
+
+Alternatively, I also organized the code into a Python package [here](../../pkg/llms_from_scratch/) (including unit tests and CI), which you can run as described below.
+
+&nbsp;
+# Training
+
+The `Qwen3Model` class is implemented in a similar style as the `GPTModel` class, so it can be used as a drop-in replacement for training in chapter 5 and finetuning in chapters 6 and 7.
 
 
 &nbsp;
@@ -29,8 +45,14 @@ pip install llms_from_scratch tokenizers
 Specify which model to use:
 
 ```python
-USE_REASONING_MODEL = False  # The base model
-USE_REASONING_MODEL = True   # The "thinking" model
+USE_REASONING_MODEL = True
+# Uses the base model if USE_REASONING_MODEL = False
+
+USE_INSTRUCT_MODEL = False
+# Uses the instruct mode (without reasoning) if 
+# USE_REASONING_MODEL = True
+# USE_INSTRUCT_MODEL = True
+# This setting does have no effect if USE_REASONING_MODEL = False
 
 
 # Use
@@ -171,10 +193,11 @@ else:
     tok_filename = "tokenizer-base.json"   
 
 tokenizer = Qwen3Tokenizer(
-    tokenizer_file_path=tok_filename,
+    tokenizer_file_path=tokenizer_file_path,
     repo_id=repo_id,
+    apply_chat_template=USE_REASONING_MODEL,
     add_generation_prompt=USE_REASONING_MODEL,
-    add_thinking=USE_REASONING_MODEL
+    add_thinking=not USE_INSTRUCT_MODEL
 )
 ```
 

@@ -1,5 +1,5 @@
-
 # Configs and keys
+.chainlit
 ch05/07_gpt_to_llama/config.json
 ch07/02_dataset-utilities/config.json
 ch07/03_model-evaluation/config.json
@@ -10,6 +10,12 @@ appendix-D/01_main-chapter-code/2.pdf
 appendix-D/01_main-chapter-code/3.pdf
 
 appendix-E/01_main-chapter-code/loss-plot.pdf
+
+ch04/04_gqa/kv_bytes_vs_context_length.pdf
+ch04/05_mla/kv_bytes_vs_context_length.pdf
+ch04/06_swa/kv_bytes_vs_context_length.pdf
+ch04/07_moe/ffn_vs_moe.pdf
+ch04/08_deltanet/deltanet_memory_plot.pdf
 
 ch05/01_main-chapter-code/loss-plot.pdf
 ch05/01_main-chapter-code/temperature-plot.pdf
@@ -24,6 +30,7 @@ ch07/01_main-chapter-code/loss-plot-baseline.pdf
 ch07/01_main-chapter-code/loss-plot-mask-instructions.pdf
 ch07/01_main-chapter-code/loss-plot-phi3-prompt.pdf
 ch07/01_main-chapter-code/loss-plot-alpaca52k.pdf
+ch07/04_preference-tuning-with-dpo/reward margins-plot.pdf
 
 # Checkpoint files
 appendix-A/01_main-chapter-code/model.pth
@@ -77,6 +84,16 @@ ch07/01_main-chapter-code/gpt2-medium355M-sft.pth
 ch07/01_main-chapter-code/gpt2-medium355M-sft-standalone.pth
 ch07/01_main-chapter-code/Smalltestmodel-sft-standalone.pth
 ch07/01_main-chapter-code/gpt2/
+
+gemma-3-270m/
+gemma-3-270m-it/
+Qwen3-0.6B-Base/
+Qwen3-0.6B/
+tokenizer-base.json
+tokenizer-reasoning.json
+tokenizer.json
+config.json
+bpe_merges.txt
 
 # Datasets
 the-verdict.txt
@@ -136,7 +153,9 @@ ch0?/0?_user_interface/chainlit.md
 ch0?/0?_user_interface/.files
 *.lock
 
-# Temporary OS-related files
+# Temporary and OS-related files
+chainlit.md
+Untitled.ipynb
 .DS_Store
 
 # Byte-compiled / optimized / DLL files
@@ -315,3 +334,5 @@ cython_debug/
 # pixi environments
 .pixi
 *.egg-info
+
+
