@@ -166,7 +166,8 @@ class GatedDeltaNet(nn.Module):
         # A_log + W_alpha(x) + dt_bias
         self.W_alpha = nn.Linear(d_in, num_heads, bias=False)
         self.dt_bias = nn.Parameter(torch.ones(num_heads))
-        self.A_log = nn.Parameter(torch.zeros(num_heads))
+        A_init = torch.empty(num_heads).uniform_(0, 16)
+        self.A_log = nn.Parameter(torch.log(A_init))
         # We could implement this as
         # W_alpha = nn.Linear(d_in, num_heads, bias=True)
         # but the bias is separate for interpretability and
@@ -331,7 +332,7 @@ For the simplified DeltaNet version implemented above, we have:
 KV_cache_DeltaNet = batch_size × n_heads × d_head × d_head × bytes
 ```
 
-Note that the `KV_cache_DeltaNet` memory size doesn't have a context length (`n_tokens`) dependency. Also, we have only the memory state S that we store instead of separate keys and values, hence `2 × bytes` becomes just `bytes`. However, note that we now have a quadratic `n_heads × d_head` in here. This comes from the state :
+Note that the `KV_cache_DeltaNet` memory size doesn't have a context length (`n_tokens`) dependency. Also, we have only the memory state S that we store instead of separate keys and values, hence `2 × bytes` becomes just `bytes`. However, note that we now have a quadratic `d_head × d_head` in here. This comes from the state :
 
 ```
 S = x.new_zeros(b, self.num_heads, self.head_dim, self.head_dim)
